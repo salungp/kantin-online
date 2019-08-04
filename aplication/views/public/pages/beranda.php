@@ -40,19 +40,19 @@
 					<div class="sidebar-header">
 						<h1>Paling laris</h1>
 						<div class="row">
-							<?php for ($i = 1; $i < 6; $i++) : ?>				
+							<?php foreach ($menu as $key) : ?>				
 							<div class="col-auto">
 								<div class="box-sm">
 									<div class="menu-image">
-										<img src="<?= base_url('assets/images/menu_images/2.jpg'); ?>">
+										<img src="<?= base_url('assets/images/menu_images/'.$key['menu_image']); ?>">
 									</div>
 									<div class="menu-text">
-										<h3 class="text-sm">Soto Ayam</h3>
-										<h1 class="text-md">Rp.3000</h1>
+										<h3 class="text-sm"><?= $key['nama']; ?></h3>
+										<h1 class="text-md">Rp.<?= $key['harga']; ?></h1>
 									</div>
 								</div>
 							</div>
-							<?php endfor; ?>
+							<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
