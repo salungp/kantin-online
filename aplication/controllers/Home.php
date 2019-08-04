@@ -54,8 +54,15 @@ class Home extends Controller
 	public function beli($id = null)
 	{
 		is_logged_in();
-		$data['title'] = 'Ayam goreng pisang';
 		$data['menu'] = $this->home_model->get_where($id);
+		if ( is_null($id) )
+		{
+			show_404();
+		} else if ($data['menu']['id'] !== $id)
+		{
+			show_404();
+		}
+		$data['title'] = 'Ayam goreng pisang';
 		$data['other'] = $this->home_model->kategori($data['menu']['kategori']);
 		$this->view('public/templates/header', $data);
 		$this->view('public/pages/beli', $data);
