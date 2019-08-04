@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>404 not found!</title>
+</head>
+<body>
+	<h1>404 not found!</h1>
+	<p>You are lost, please back home.</p>
+</body>
+</html>
