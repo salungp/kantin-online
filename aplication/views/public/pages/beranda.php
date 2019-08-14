@@ -10,15 +10,19 @@
 							<div class="box">
 								<div class="menu-image">
 									<img src="<?= base_url('assets/images/menu_images/'.$key['menu_image']); ?>">
+									<a href="<?= base_url('home/suka/'.$key['id']); ?>" class="menu-btn-love"><i class="fa  fa-heart-o"></i></a>
 								</div>
 								<div class="menu-text">
 									<h3><?= $key['nama']; ?></h3>
 									<h1>Rp.<?= $key['harga']; ?></h1>
-									<a href="<?= base_url('home/beli/'.$key['id']); ?>" class="btn-round">Beli</a>
+									<a href="<?= base_url('home/beli/'.$key['id']); ?>" class="menu-btn-cart"><i class="fa fa-shopping-cart"></i></a>
 								</div>
 							</div>
 						</div>
 					<?php endforeach; ?>
+					<?php if (count($menu) < 1 && isset($data['key'])) : ?>
+						<h1>Tidak ada hasil '<?php echo $data['key']; ?>'</h1>
+					<?php endif; ?>
 				</div>
 			</div>
 			<div class="sidebar">

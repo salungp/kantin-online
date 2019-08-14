@@ -79,6 +79,7 @@ class Home extends Controller
 	public function cari()
 	{
 		$data['title'] = 'Cari - '.@$_POST['q'];
+		$data['key'] = @$_POST['q'];
 		$data['menu'] = $this->home_model->search();
 		$this->view('public/templates/header', $data);
 		$this->view('public/pages/beranda', $data);
@@ -112,7 +113,7 @@ class Home extends Controller
 			'harga' => $harga_barang,
 			'lokasi_user' => $lokasi,
 			'jumlah_barang' => $jumlah_barang,
-			'updated_at' => date('Y-m-d')
+			// 'updated_at' => date('Y-m-d')
 		);
 
 		if ($this->home_model->pesanMakanan($data) > 0)

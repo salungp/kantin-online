@@ -21,7 +21,7 @@
 			<form action="<?= base_url('home/cari'); ?>" method="POST">
 				<div class="search-group">
 					<input type="text" name="q" placeholder="Search here">
-					<button type="submit">Cari</button>
+					<button type="submit"><i class="fa fa-search"></i></button>
 				</div>
 			</form>
 		</div>
