@@ -10,6 +10,7 @@ class home_model
 	public function get()
 	{
 		$this->db->order_by('id', 'DESC');
+		$this->db->select('id, nama, harga, menu_image');
 		$this->db->get('menu');
 		return $this->db->result_array();
 	}
@@ -20,10 +21,16 @@ class home_model
 		return $this->db->row_array();
 	}
 
+	public function like_menu_where($id = null)
+	{
+		$this->db->get_where('like_menu', array('id_user', $id));
+		return $this->db->result_array();
+	}
+
 	public function pesanan($id)
 	{
 		$this->db->order_by('id', 'DESC');
-		$this->db->get_where('pesanan', array('user_id' => $id));
+		$this->db->query();
 		return $this->db->result_array();
 	}
 
@@ -97,6 +104,12 @@ class home_model
 	public function register($data)
 	{
 		$this->db->insert('user', $data);
+		return $this->db->rowCount();
+	}
+
+	public function like($data)
+	{
+		$this->db->insert('like_menu', $data);
 		return $this->db->rowCount();
 	}
 }

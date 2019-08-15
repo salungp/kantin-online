@@ -14,23 +14,23 @@
 			<div class="row">
 				<div class="col-6">
 					<label for="fn">Nama Depan</label>
-					<input id="fn" type="text" name="front_name" placeholder="Nama depan" class="form-control" required>
+					<input id="fn" type="text" name="front_name" placeholder="Nama depan" class="form-input" required>
 				</div>
 				<div class="col-6">
 					<label for="bn">Nama Belakang</label>
-					<input id="bn" type="text" name="back_name" placeholder="Nama belakang" class="form-control" required>
+					<input id="bn" type="text" name="back_name" placeholder="Nama belakang" class="form-input" required>
 				</div>
 				<div class="col-12">
 					<label for="subject">Subjek</label>
-					<input type="text" name="subject" id="subject" class="form-control" placeholder="Subjek" required>
+					<input type="text" name="subject" id="subject" class="form-input" placeholder="Subjek" required>
 				</div>
 				<div class="col-12">
 					<label for="email">email</label>
-					<input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+					<input type="email" name="email" id="email" class="form-input" placeholder="Email" required>
 				</div>
 				<div class="col-12">
 					<label for="msg">Pesan</label>
-					<textarea id="msg" name="msg" class="form-control" placeholder="Pesan" required></textarea>
+					<textarea id="msg" name="msg" class="form-input" placeholder="Pesan" required></textarea>
 				</div>
 				<div class="col-12">
 					<button type="submit" class="btn btn-danger">Kirim</button>

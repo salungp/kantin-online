@@ -8,6 +8,7 @@ class Database
 	public $conn;
 	public $stmt;
 	public $order;
+	public $select = '*';
 
 	public function __construct()
 	{
@@ -15,15 +16,24 @@ class Database
 		$this->conn = new PDO($dsn, $this->db_user, $this->db_pass);
 	}
 
+	public function select($field)
+	{
+		if ( ! is_array($field) && ! is_null($field))
+		{
+			$this->select = $field;
+		} else {
+			$this->select = '*';
+		}
+	}
+
 	public function query($query)
 	{
 		$this->stmt = $this->conn->prepare($query);
 	}
 
-	public function get($table, $field = null)
+	public function get($table)
 	{
-		$_field = is_null($field) ? $field = '*' : $field;
-		$this->stmt = $this->conn->prepare('SELECT '.$_field.' FROM '.$table.$this->order);
+		$this->stmt = $this->conn->prepare('SELECT '.$this->select.' FROM '.$table.$this->order);
 		$this->stmt->execute();
 	}
 
@@ -48,7 +58,7 @@ class Database
 			$key = $k.'=:'.$k;
 			$execute[':'.$k] = $v;
 		}
-		$query = 'SELECT * FROM '.$table.' WHERE '.$key.$this->order;
+		$query = 'SELECT '.$this->select.' FROM '.$table.' WHERE '.$key.$this->order;
 		$this->stmt = $this->conn->prepare($query);
 		$this->stmt->execute($execute);
 	}

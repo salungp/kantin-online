@@ -755,6 +755,24 @@ th {
 	min-height: 100vh;
 }
 
+.form-input {
+	outline: none;
+	padding: 10px 12px;
+	width: 100%;
+	border: none;
+	border: 1px solid rgba(0,0,0,.03);
+	font-size: 15px;
+	border-radius: 4px;
+	background: #eaeaea;
+	margin: 5px 0;
+}
+
+.form-input:focus {
+	border: 1px solid rgba(33, 150, 243, 1);
+	box-shadow: 0 0 1px 3px rgba(33, 150, 243, .5);
+	background: #fff;
+}
+
 @media (min-width: 786px) {
 	.form-box {
 		width: 300px;
@@ -783,6 +801,7 @@ th {
 	color: #fff;
 	background: rgba(82, 98, 188, 1);
 	border: none;
+	font-size: 14px;
 	outline: none;
 	margin: 15px 0;
 }
@@ -793,4 +812,14 @@ th {
 
 .form-box button:focus {
 	background: rgba(82, 98, 188, 1);
+}
+
+.double-input {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.double-input input {
+	flex-basis: 48%;
 }

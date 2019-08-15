@@ -89,12 +89,12 @@ class Home extends Controller
 	public function pesan()
 	{
 		is_logged_in();
-		$barang_id = $_POST['id'];
-		$nama_barang = $_POST['nama'];
-		$harga_barang = $_POST['harga'];
-		$lokasi = $_POST['lokasi'];
-		$foto_barang = $_POST['foto'];
-		$jumlah_barang = $_POST['jumlah'];
+		$barang_id = @$_POST['id'];
+		$nama_barang = @$_POST['nama'];
+		$harga_barang = @$_POST['harga'];
+		$lokasi = @$_POST['lokasi'];
+		$foto_barang = @$_POST['foto'];
+		$jumlah_barang = @$_POST['jumlah'];
 
 		if ( $jumlah_barang < 1 )
 		{
@@ -144,6 +144,7 @@ class Home extends Controller
 		is_logged_in();
 		$data['title'] = 'Pesanan - Silahkan tunggu pesanan yang sedang di proses';
 		$data['pesanan'] = $this->home_model->pesanan(user['id']);
+		$data['menu'] = $this->home_model->get_where($data['barang_id']);
 		$this->view('public/templates/header', $data);
 		$this->view('public/pages/pesanan', $data);
 		$this->view('public/templates/footer');
@@ -213,6 +214,54 @@ class Home extends Controller
 				<h1>Danger</h1>
 				daftar gagal.</div>');
 			redirect('home/register');
+		}
+	}
+
+	public function suka($id = null)
+	{
+		$menu = $this->home_model->get_where($id);
+		$like_menu = $this->home_model->like_menu_where(user['id']);
+		if ( ! is_null($id))
+		{
+			if ($id == $menu['id'])
+			{
+				foreach ($like_menu as $key) {
+					if ($key['id_menu'] == $id)
+					{
+						Flasher::setFlash('<div class="alert alert-danger">
+						<h1>Danger</h1>
+						Maaf anda telah menyukai.</div>');
+						redirect('home');
+					}
+				}
+				$data = array(
+					'id_user' => user['id'],
+					'id_menu' => $id
+				);
+
+				if ($this->home_model->like($data) > 0)
+				{
+					Flasher::setFlash('<div class="alert alert-success">
+					<h1>Success</h1>
+					Berhasil menyukai.</div>');
+					redirect('home');
+				} else {
+					Flasher::setFlash('<div class="alert alert-danger">
+					<h1>Danger</h1>
+					Gagal menyukai.</div>');
+					redirect('home');
+				}
+			} else {
+				Flasher::setFlash('<div class="alert alert-danger">
+				<h1>Danger</h1>
+				Tidak menemukan id '.$id.'.</div>');
+				redirect('home');
+			}
+		} else {
+			Flasher::setFlash('<div class="alert alert-danger">
+			<h1>Danger</h1>
+			id '.$id.' tidak ditemukan!.</div>');
+			redirect('home');
 		}
 	}
 }
