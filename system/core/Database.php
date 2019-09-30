@@ -9,6 +9,7 @@ class Database
 	public $stmt;
 	public $order;
 	public $select = '*';
+	public $where;
 
 	public function __construct()
 	{
@@ -25,6 +26,24 @@ class Database
 			$this->select = '*';
 		}
 	}
+
+	public function update($table, $data)
+	{
+		if (is_null($data) || is_null($table))
+		{
+			die('You must set this params!');
+		} else {
+			$key = array();
+			$value = array();
+			foreach ($data as $k => $v) {
+				$key[] = $k.'='.':'.$k;
+				$value[':'.$k] = $v;
+			}
+			$query = 'UPDATE '.$table.' SET '.implode(', ', $key).$this->where;
+			$this->stmt = $this->conn->prepare($query);
+			$this->stmt->execute($value);
+		}
+	}	
 
 	public function query($query)
 	{
@@ -71,6 +90,11 @@ class Database
 		} else {
 			$this->order = ' ORDER BY '.$index.' '.$type;
 		}
+	}
+
+	public function where($key, $value)
+	{
+		$this->where = ' WHERE '.$key.'='.$value;
 	}
 
 	public function row_array()

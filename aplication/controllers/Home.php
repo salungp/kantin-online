@@ -107,13 +107,10 @@ class Home extends Controller
 
 		$data = array(
 			'barang_id' => $barang_id,
-			'nama' => $nama_barang,
-			'foto' => $foto_barang,
 			'user_id' => user['id'],
-			'harga' => $harga_barang,
 			'lokasi_user' => $lokasi,
 			'jumlah_barang' => $jumlah_barang,
-			// 'updated_at' => date('Y-m-d')
+			'status' => 1
 		);
 
 		if ($this->home_model->pesanMakanan($data) > 0)
@@ -121,12 +118,12 @@ class Home extends Controller
 			Flasher::setFlash('<div class="alert alert-success">
 				<h1>Success</h1>
 				Pesanan berhasil dikirim silahkan tunggu pesanan datang.</div>');
-			redirect('home/beli/'.$barang_id);
+			redirect('home/pesanan/');
 		} else {
 			Flasher::setFlash('<div class="alert alert-danger">
 				<h1>Danger</h1>
 				Pesanan gagal dikirim.</div>');
-			redirect('home/beli/'.$barang_id);
+			redirect('home/pesanan/');
 		}
 	}
 
@@ -144,7 +141,6 @@ class Home extends Controller
 		is_logged_in();
 		$data['title'] = 'Pesanan - Silahkan tunggu pesanan yang sedang di proses';
 		$data['pesanan'] = $this->home_model->pesanan(user['id']);
-		$data['menu'] = $this->home_model->get_where($data['barang_id']);
 		$this->view('public/templates/header', $data);
 		$this->view('public/pages/pesanan', $data);
 		$this->view('public/templates/footer');
@@ -262,6 +258,30 @@ class Home extends Controller
 			<h1>Danger</h1>
 			id '.$id.' tidak ditemukan!.</div>');
 			redirect('home');
+		}
+	}
+
+	public function selesai($id = null)
+	{
+		if ( ! is_null($id))
+		{
+			if ($this->home_model->selesai_pesan($id) > 0)
+			{
+				Flasher::setFlash('<div class="alert alert-success">
+				<h1>Success</h1>
+				<b>Terima kasih</b> telah bertransaksi di <b>kantinku</b></div>');
+				redirect('home/pesanan');
+			} else {
+				Flasher::setFlash('<div class="alert alert-danger">
+				<h1>Danger</h1>
+				<b>Maaf</b> mungkin terjadi kesalahan!</div>');
+				redirect('home/pesanan');
+			}
+		} else {
+			Flasher::setFlash('<div class="alert alert-danger">
+			<h1>Danger</h1>
+			<b>Maaf</b> b!</div>');
+			redirect('home/pesanan');
 		}
 	}
 }
